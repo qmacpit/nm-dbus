@@ -12,7 +12,7 @@ describe('connection suite', function(){
             console.log(connections);
             done();
         });
-    })
+    });
 
     it('get connections list - promise call', function(done){
         NmManager.getConnections(null)
@@ -22,6 +22,7 @@ describe('connection suite', function(){
                 console.log(connections);
                 return done();
             });
-    })
+    });
+
 
 })
