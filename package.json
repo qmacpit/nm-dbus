@@ -1,0 +1,18 @@
+{
+  "name": "nm-dbus",
+  "version": "0.0.1",
+  "description": "node interface to linux Network Manager",
+  "main": "main.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "network",
+    "manager"
+  ],
+  "author": "qmacpit",
+  "license": "ISC"
+}
