@@ -55,17 +55,16 @@ describe('connection suite', function(){
                 connections1 = connections;
             })
             .then(_createConnection)
-            .then(NmManager.getConnections)
+            .then(function(_newConnection){
+                newConnection = _newConnection;return NmManager.getConnections();
+            })
             .then(function(connections){
                 connections2 = connections;
                 expect(connections1.length + 1).to.eql(connections2.length);
-                newConnection = connections2[connections2.length - 1];
-                console.log(connections2);
                 NmManager.deleteConnection(newConnection);
             })
             .then(NmManager.getConnections)
             .then(function(connections){
-                console.log(connections);
                 expect(connections.length).to.eql(connections.length);
                 return done();
             })
