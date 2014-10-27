@@ -14,5 +14,12 @@
     "manager"
   ],
   "author": "qmacpit",
-  "license": "ISC"
+  "license": "MIT",
+  "dependencies": {
+    "dbus": "^0.2.10",
+    "q": "^1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  }
 }
