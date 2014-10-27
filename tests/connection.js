@@ -9,8 +9,19 @@ describe('connection suite', function(){
             expect(err).to.not.be.ok();
             expect(connections).to.be.an(Array);
             expect(connections).to.not.be.empty();
+            console.log(connections);
             done();
         });
+    })
+
+    it('get connections list - promise call', function(done){
+        NmManager.getConnections(null)
+            .then(function(connections){
+                expect(connections).to.be.an(Array);
+                expect(connections).to.not.be.empty();
+                console.log(connections);
+                return done();
+            });
     })
 
 })
