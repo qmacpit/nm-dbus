@@ -116,30 +116,19 @@ describe('connection suite', function(){
 
         var newConnection;
 
-//        _createConnection()
-//            .then(function(_newConnection){
-//                newConnection = _newConnection;
-//                return NmManager.getConnections("gsm");
-//            })
-//            .then(function(gsmConnections){
-//                expect(gsmConnections).to.be.an(Array);
-//                expect(gsmConnections).to.not.be.empty();
-//                return NmManager.deleteConnection(newConnection);
-//            })
-//            .then(function(){
-//                console.log("connection deleted");
-//                return done();
-//            })
-
-        NmManager.getConnections("gsm")
+        _createConnection()
+            .then(function(_newConnection){
+                newConnection = _newConnection;
+                return NmManager.getConnections("gsm");
+            })
             .then(function(gsmConnections){
-                console.log("test result");
-                console.log(gsmConnections);
                 expect(gsmConnections).to.be.an(Array);
                 expect(gsmConnections).to.not.be.empty();
+                return NmManager.deleteConnection(newConnection);
+            })
+            .then(function(){
                 return done();
             })
     });
-
 
 })
