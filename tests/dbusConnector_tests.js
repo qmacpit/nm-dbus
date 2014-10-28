@@ -38,4 +38,17 @@ describe('DBusConnector suite', function(){
 
     });
 
+    it('no such property', function(done){
+
+        var data = DBusConnector.dbusData();
+
+        DBusConnector.getProperty(data.Settings.object, data.Settings.interface, "xxx")
+            .fail(function(err){
+                console.log(err)
+                expect(err).to.be.ok();
+                return done();
+            })
+
+    });
+
 })
