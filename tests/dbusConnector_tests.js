@@ -51,4 +51,15 @@ describe('DBusConnector suite', function(){
 
     });
 
+    it('no such signal', function(done){
+
+        var data = DBusConnector.dbusData();
+
+        DBusConnector.on(data.Settings.object + "/0", data.Connection.interface, "xxx", function(err){
+            console.log(err)
+            expect(err).to.be.ok();
+            return done();
+        })
+    });
+
 })

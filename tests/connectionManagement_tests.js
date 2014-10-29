@@ -1,5 +1,6 @@
 var assert = require("assert"),
     expect = require('expect.js'),
+    DBusConnector = require("../lib/middleware/dbusConnector"),
     NmManager = require("../lib/nmManager");
 
 var _defaultConnection = {
@@ -82,9 +83,10 @@ describe('connection suite', function(){
     it('update connection', function(done){
 
         var newConnection, _gsm = {
-            "number": "*11#",
-            "apn": "play"
-        };
+                "number": "*11#",
+                "apn": "play"
+            }, connection = DBusConnector.dbusData("Connection");
+
 
         _createConnection()
             .then(function(_newConnection){
@@ -93,6 +95,10 @@ describe('connection suite', function(){
             })
             .then(function(connectionData){
                 connectionData.gsm = _gsm;
+                NmManager.on(newConnection, connection.interface, "Updated", function(err, data){
+                    expect(err).to.be(null);
+                    expect(data.object).to.be(newConnection);
+                });
                 return NmManager.updateConnection(newConnection, connectionData);
             })
             .then(function(){
