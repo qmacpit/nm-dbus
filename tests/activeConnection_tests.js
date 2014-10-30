@@ -46,10 +46,16 @@ describe('active connection suite', function(){
                 connection3g = connections[0];
                 return NmManager.activateConnection(connection3g, device3g);
             })
-            .then(function(udi){
+            .then(function(activeConnectionId){
+                console.log(activeConnectionId)
                 console.log(device3g)
                 console.log(connection3g)
+                return NmManager.deactivateConnection(activeConnectionId);
+            }).then(function(){
                 return done();
+            })
+            .fail(function(err){
+                console.log(err);
             })
     });
 
