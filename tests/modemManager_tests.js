@@ -22,14 +22,14 @@ describe('modemManager suite', function(){
                 modemId = modems[0];
 
                 NmManager.onModemStateChanged(modemId, function(err, signalData){
-                    console.log(signalData.data)
+//                    console.log(signalData.data)
                     switch (signalData.data) {
                         case 80:
                         case 90:
                             //CONNECTED
                             NmManager.getNetworkInfo(modemId)
                                 .then(function(networkInfo){
-                                    console.log(networkInfo);                                                                        
+//                                    console.log(networkInfo);
                                     return NmManager.deactivateConnection(activeConnectionId);
                                 })
                                 .then(function(){
@@ -61,39 +61,5 @@ describe('modemManager suite', function(){
                 console.log(err);
             })
     });
-
-//    it('2', function(done){
-//
-//        this.timeout(45000);
-//
-//        var device3g, connection3g, modemId, activeConnectionId;
-//
-//
-//            NmManager.getModems()
-//            .then(function(modems){
-//
-//                modemId = modems[0];
-//
-//                NmManager.onModemStateChanged(modemId, function(err, signalData){
-//                    console.log(signalData.data)
-//                    switch (signalData.data) {
-//                        case 90:
-//                            //CONNECTED
-//                            return NmManager.getSignalQuality(modemId)
-//                                .then(function(signalData){
-//                                    console.log("signalData");
-//                                    console.log(signalData);
-//                                    return NmManager.getRegistrationInfo(modemId);
-//                                })
-//                                .then(function(registrationInfo){
-//                                    console.log("registrationInfo");
-//                                    console.log(registrationInfo);
-//                                    return done();
-//                                })
-//                    }
-//                });
-//            })
-//
-//    });
 
 })

@@ -14,7 +14,6 @@ describe('devices suite', function(){
                 return NmManager.getModemInfo(modems[0]);
             })
             .then(function(modeminfo){
-                console.log(modeminfo);
                 return done();
             })
             .fail(function(err){

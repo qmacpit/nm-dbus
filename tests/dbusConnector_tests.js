@@ -8,7 +8,7 @@ describe('DBusConnector suite', function(){
 
     it('no such interface', function(done){
 
-        DBusConnector.callMethod(data.Settings.object, data.Settings.interface + "xxxx", "dummyMethod")
+        DBusConnector.callMethod(data.NetworkManager.interface, data.Settings.object, data.Settings.interface + "xxxx", "dummyMethod")
             .fail(function(err){
                 expect(err).to.be.ok();
                 return done();
@@ -18,7 +18,7 @@ describe('DBusConnector suite', function(){
 
     it('no such object', function(done){
 
-        DBusConnector.callMethod(data.Settings.object + "xxxx", data.Settings.interface, "dummyMethod")
+        DBusConnector.callMethod(data.NetworkManager.interface, data.Settings.object + "xxxx", data.Settings.interface, "dummyMethod")
             .fail(function(err){
                 expect(err).to.be.ok();
                 return done();
@@ -30,7 +30,7 @@ describe('DBusConnector suite', function(){
 
         var data = DBusConnector.dbusData();
 
-        DBusConnector.callMethod(data.Settings.object, data.Settings.interface, "dummyMethod")
+        DBusConnector.callMethod(data.NetworkManager.interface, data.Settings.object, data.Settings.interface, "dummyMethod")
             .fail(function(err){
                 expect(err).to.be.ok();
                 return done();
@@ -42,9 +42,8 @@ describe('DBusConnector suite', function(){
 
         var data = DBusConnector.dbusData();
 
-        DBusConnector.getProperty(data.Settings.object, data.Settings.interface, "xxx")
+        DBusConnector.getProperty(data.NetworkManager.interface, data.Settings.object, data.Settings.interface, "xxx")
             .fail(function(err){
-                console.log(err)
                 expect(err).to.be.ok();
                 return done();
             })
@@ -56,7 +55,6 @@ describe('DBusConnector suite', function(){
         var data = DBusConnector.dbusData();
 
         DBusConnector.on(data.NetworkManager.interface, data.Settings.object + "/0", data.Connection.interface, "xxx", function(err){
-            console.log(err)
             expect(err).to.be.ok();
             return done();
         })

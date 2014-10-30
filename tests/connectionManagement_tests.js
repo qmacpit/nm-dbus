@@ -48,40 +48,6 @@ describe('connection suite', function(){
             });
     });
 
-    it('add & delete connection', function(done){
-
-        var connections1, connections1, newConnection;
-
-        NmManager.getConnections(null)
-            .then(function(connections){
-                connections1 = connections;
-            })
-            .then(_createConnection)
-            .then(function(_newConnection){
-                newConnection = _newConnection;
-                return NmManager.getConnection(newConnection);
-            })
-            .then(function(_newConnection){
-                expect(_newConnection.connection).to.eql(_defaultConnection.connection);
-                expect(_newConnection.ppp).to.eql(_defaultConnection.ppp);
-                expect(_newConnection.gsm).to.eql(_defaultConnection.gsm);
-                return NmManager.getConnections();
-            })
-            .then(function(connections){
-                connections2 = connections;
-                expect(connections1.length + 1).to.eql(connections2.length);
-                return NmManager.deleteConnection(newConnection);
-            })
-            .then(NmManager.getConnections)
-            .then(function(connections){
-                expect(connections.length).to.eql(connections.length);
-                return done();
-            })
-            .fail(function(err){
-                console.log(err);
-            })
-    });
-
     it('update connection', function(done){
 
         var newConnection, _gsm = {
@@ -101,6 +67,10 @@ describe('connection suite', function(){
                     expect(err).to.be(null);
                     expect(data.object).to.be(newConnection);
                 });
+                NmManager.on(dbusData.NetworkManager.interface, newConnection, connection.interface, "Removed", function(err, data){
+                    expect(err).to.be(null);
+                    return done();
+                });
                 return NmManager.updateConnection(newConnection, connectionData);
             })
             .then(function(){
@@ -111,9 +81,6 @@ describe('connection suite', function(){
                 expect(connection.ppp).to.eql(_defaultConnection.ppp);
                 expect(connection.gsm).to.eql(_gsm);
                 return NmManager.deleteConnection(newConnection);
-            })
-            .then(function(){
-                return done();
             })
             .fail(function(err){
                 console.log(err);
