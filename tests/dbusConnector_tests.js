@@ -55,7 +55,7 @@ describe('DBusConnector suite', function(){
 
         var data = DBusConnector.dbusData();
 
-        DBusConnector.on(data.Settings.object + "/0", data.Connection.interface, "xxx", function(err){
+        DBusConnector.on(data.NetworkManager.interface, data.Settings.object + "/0", data.Connection.interface, "xxx", function(err){
             console.log(err)
             expect(err).to.be.ok();
             return done();
