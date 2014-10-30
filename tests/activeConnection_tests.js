@@ -27,6 +27,8 @@ var assert = require("assert"),
 
 describe('active connection suite', function(){
 
+    this.timeout(15000);
+
     var deviceId;
 
     it('activate gsm connection', function(done){
@@ -47,12 +49,21 @@ describe('active connection suite', function(){
                 return NmManager.activateConnection(connection3g, device3g);
             })
             .then(function(activeConnectionId){
-                console.log(activeConnectionId)
-                console.log(device3g)
-                console.log(connection3g)
-                return NmManager.deactivateConnection(activeConnectionId);
-            }).then(function(){
-                return done();
+//                console.log(activeConnectionId)
+//                console.log(device3g)
+//                console.log(connection3g)
+                NmManager.onActiveConnectionStateChanged(activeConnectionId, function(err, signalData){
+                    expect(err).to.not.be.ok();
+//                    console.log(signalData.data);
+                    switch (signalData.data.State) {
+                        case 2:
+                            //NM_ACTIVE_CONNECTION_STATE_ACTIVATED
+                            NmManager.deactivateConnection(activeConnectionId);
+                        case 4:
+                            //NM_ACTIVE_CONNECTION_STATE_DEACTIVATED
+                            return done();
+                    }
+                });
             })
             .fail(function(err){
                 console.log(err);
