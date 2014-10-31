@@ -87,6 +87,49 @@ describe('connection suite', function(){
             })
     });
 
+    it('update connection - signal cancelled', function(done){
+
+        var newConnection, _gsm = {
+                "number": "*11#",
+                "apn": "play"
+            }, connection = DBusConnector.dbusData("Connection");
+
+
+        _createConnection()
+            .then(function(_newConnection){
+                newConnection = _newConnection;
+                return NmManager.getConnection(newConnection);
+            })
+            .then(function(connectionData){
+                connectionData.gsm = _gsm;
+                NmManager.on(dbusData.NetworkManager.interface, newConnection, connection.interface, "Updated", function(err, data){
+                    expect(err).to.be(null);
+                    expect(data.object).to.be(newConnection);
+                });
+                var callbackCtrl = NmManager.on(dbusData.NetworkManager.interface, newConnection, connection.interface, "Updated", function(err, data){
+                    assert.equal(true, false, 'deactivated callback must not be called');
+                });
+                callbackCtrl.deactivate();
+                NmManager.on(dbusData.NetworkManager.interface, newConnection, connection.interface, "Removed", function(err, data){
+                    expect(err).to.be(null);
+                    return done();
+                });
+                return NmManager.updateConnection(newConnection, connectionData);
+            })
+            .then(function(){
+                return NmManager.getConnection(newConnection);
+            })
+            .then(function(connection){
+                expect(connection.connection).to.eql(_defaultConnection.connection);
+                expect(connection.ppp).to.eql(_defaultConnection.ppp);
+                expect(connection.gsm).to.eql(_gsm);
+                return NmManager.deleteConnection(newConnection);
+            })
+            .fail(function(err){
+                console.log(err);
+            })
+    });
+
     it('get gsm connection', function(done){
 
         var newConnection;
