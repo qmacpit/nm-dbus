@@ -30,7 +30,7 @@ describe('connection suite', function(){
 
     var dbusData = DBusConnector.dbusData();
 
-    it('get connections list', function(done){
+    it('get connections list - callback', function(done){
         NmManager.getConnections(null, function(err, connections){
             expect(err).to.not.be.ok();
             expect(connections).to.be.an(Array);
