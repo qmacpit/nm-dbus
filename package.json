@@ -1,8 +1,12 @@
 {
   "name": "nm-dbus",
   "version": "0.0.1",
-  "description": "node interface to linux Network Manager",
-  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/qmacpit/nm-dbus"
+  },
+  "description": "node interface to linux Network/Modem Manager",
+  "main": "./lib/nmMnager.js",
   "directories": {
     "test": "tests"
   },
