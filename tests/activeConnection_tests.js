@@ -41,11 +41,10 @@ describe('active connection suite', function(){
                     if (disabled) return;
                     expect(err).to.not.be.ok();
                     switch (signalData.data.State) {
-                        case 2:
-                            //NM_ACTIVE_CONNECTION_STATE_ACTIVATED
+                        case "NM_ACTIVE_CONNECTION_STATE_ACTIVATED":
                             NmManager.onModemStateChanged(modemId, function(err, signalData){
                                 switch (signalData.data) {
-                                    case 70:
+                                    case "DISCONNECTING":
                                         return done();
                                     default:
                                         return;
@@ -53,8 +52,7 @@ describe('active connection suite', function(){
                             });
                             NmManager.deactivateConnection(activeConnectionId);
                             break;
-                        case 4:
-                            //NM_ACTIVE_CONNECTION_STATE_DEACTIVATED
+                        case "NM_ACTIVE_CONNECTION_STATE_DEACTIVATED":
                             disabled = true;
                     }
                 });

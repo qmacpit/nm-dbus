@@ -10,7 +10,7 @@ describe('modemManager suite', function(){
 
         var device3g, connection3g, modemId, activeConnectionId;
 
-        NmManager.getDevices(8)
+        NmManager.getDevices("NM_DEVICE_TYPE_MODEM")
             .then(function(devices){
                 expect(devices).to.be.an(Array);
                 expect(devices).to.not.be.empty();
@@ -24,9 +24,8 @@ describe('modemManager suite', function(){
                 NmManager.onModemStateChanged(modemId, function(err, signalData){
 //                    console.log(signalData.data)
                     switch (signalData.data) {
-                        case 80:
-                        case 90:
-                            //CONNECTED
+                        case "CONNECTING":
+                        case "CONNECTED":
                             NmManager.getNetworkInfo(modemId)
                                 .then(function(networkInfo){
 //                                    console.log(networkInfo);
