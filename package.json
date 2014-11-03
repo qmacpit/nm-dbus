@@ -6,7 +6,7 @@
     "url": "https://github.com/qmacpit/nm-dbus"
   },
   "description": "node interface to linux Network/Modem Manager",
-  "main": "./lib/nmMnager.js",
+  "main": "lib/nmManager.js",
   "directories": {
     "test": "tests"
   },
