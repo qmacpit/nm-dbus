@@ -22,9 +22,7 @@ describe('modemManager suite', function(){
                 modemId = modems[0];
 
                 NmManager.onModemStateChanged(modemId, function(err, signalData){
-//                    console.log(signalData.data)
-                    switch (signalData.data) {
-                        case "CONNECTING":
+                    switch (signalData.data[1]) {
                         case "CONNECTED":
                             NmManager.getNetworkInfo(modemId)
                                 .then(function(networkInfo){
