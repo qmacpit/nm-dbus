@@ -20,7 +20,7 @@
   "author": "qmacpit",
   "license": "MIT",
   "dependencies": {
-    "dbus": "0.2.13",
+    "dbus": "0.2.12",
     "q": "^1.0.1"
   },
   "devDependencies": {
