@@ -1,6 +1,6 @@
 {
   "name": "nm-dbus",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/qmacpit/nm-dbus"
@@ -20,7 +20,7 @@
   "author": "qmacpit",
   "license": "MIT",
   "dependencies": {
-    "dbus": "0.2.10",
+    "dbus": "0.2.13",
     "q": "^1.0.1"
   },
   "devDependencies": {
